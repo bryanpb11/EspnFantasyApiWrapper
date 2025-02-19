@@ -1,5 +1,8 @@
 ﻿namespace EspnFantasyApiWrapper.API.Model
 {
+    /// <summary>
+    /// Simplified TeamStats object with only some of the data fields from the ESPN API
+    /// </summary>
     public class TeamStats
     {
         public int TeamId { get; set; }

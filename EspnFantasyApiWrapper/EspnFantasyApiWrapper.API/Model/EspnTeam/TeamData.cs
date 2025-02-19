@@ -5,7 +5,7 @@ namespace EspnFantasyApiWrapper.API.Model.EspnTeam
     public class TeamData
     {
         [JsonPropertyName("draftDetail")]
-        public DraftDetail DraftDetail { get; set; }
+        public DraftDetail DraftDetail { get; set; } = new();
 
         [JsonPropertyName("gameId")]
         public int GameId { get; set; }
@@ -14,7 +14,7 @@ namespace EspnFantasyApiWrapper.API.Model.EspnTeam
         public int Id { get; set; }
 
         [JsonPropertyName("members")]
-        public List<Member> Members { get; set; }
+        public List<Member> Members { get; set; } = [];
 
         [JsonPropertyName("scoringPeriodId")]
         public int ScoringPeriodId { get; set; }
@@ -26,10 +26,10 @@ namespace EspnFantasyApiWrapper.API.Model.EspnTeam
         public int SegmentId { get; set; }
 
         [JsonPropertyName("status")]
-        public Status Status { get; set; }
+        public Status Status { get; set; } = new();
 
         [JsonPropertyName("teams")]
-        public List<Team> Teams { get; set; }
+        public List<Team> Teams { get; set; } = [];
     }
 
     public class DraftDetail
@@ -44,16 +44,16 @@ namespace EspnFantasyApiWrapper.API.Model.EspnTeam
     public class Member
     {
         [JsonPropertyName("displayName")]
-        public string DisplayName { get; set; }
+        public string DisplayName { get; set; } = "";
 
         [JsonPropertyName("firstName")]
-        public string FirstName { get; set; }
+        public string FirstName { get; set; } = "";
 
         [JsonPropertyName("id")]
-        public string Id { get; set; }
+        public string Id { get; set; } = "";
 
         [JsonPropertyName("lastName")]
-        public string LastName { get; set; }
+        public string LastName { get; set; } = "";
     }
 
     public class Status
@@ -101,7 +101,7 @@ namespace EspnFantasyApiWrapper.API.Model.EspnTeam
         public int LatestScoringPeriod { get; set; }
 
         [JsonPropertyName("previousSeasons")]
-        public List<int> PreviousSeasons { get; set; }
+        public List<int> PreviousSeasons { get; set; } = [];
 
         [JsonPropertyName("standingsUpdateDate")]
         public long StandingsUpdateDate { get; set; }
@@ -119,13 +119,13 @@ namespace EspnFantasyApiWrapper.API.Model.EspnTeam
         public long WaiverNextExecutionDate { get; set; }
 
         [JsonPropertyName("waiverProcessStatus")]
-        public Dictionary<string, int> WaiverProcessStatus { get; set; }
+        public Dictionary<string, int> WaiverProcessStatus { get; set; } = [];
     }
 
     public class Team
     {
         [JsonPropertyName("abbrev")]
-        public string Abbrev { get; set; }
+        public string Abbrev { get; set; } = "";
 
         [JsonPropertyName("currentProjectedRank")]
         public int CurrentProjectedRank { get; set; }
@@ -143,16 +143,16 @@ namespace EspnFantasyApiWrapper.API.Model.EspnTeam
         public bool IsActive { get; set; }
 
         [JsonPropertyName("logo")]
-        public string Logo { get; set; }
+        public string Logo { get; set; } = "";
 
         [JsonPropertyName("logoType")]
-        public string LogoType { get; set; }
+        public string LogoType { get; set; } = "";
 
         [JsonPropertyName("name")]
-        public string Name { get; set; }
+        public string Name { get; set; } = "";
 
         [JsonPropertyName("owners")]
-        public List<string> Owners { get; set; }
+        public List<string> Owners { get; set; } = [];
 
         [JsonPropertyName("playoffSeed")]
         public int PlayoffSeed { get; set; }
@@ -167,7 +167,7 @@ namespace EspnFantasyApiWrapper.API.Model.EspnTeam
         public double PointsDelta { get; set; }
 
         [JsonPropertyName("primaryOwner")]
-        public string PrimaryOwner { get; set; }
+        public string PrimaryOwner { get; set; } = "";
 
         [JsonPropertyName("rankCalculatedFinal")]
         public int RankCalculatedFinal { get; set; }
@@ -176,34 +176,34 @@ namespace EspnFantasyApiWrapper.API.Model.EspnTeam
         public int RankFinal { get; set; }
 
         [JsonPropertyName("record")]
-        public Record Record { get; set; }
+        public Record Record { get; set; } = new();
 
         [JsonPropertyName("transactionCounter")]
-        public TransactionCounter TransactionCounter { get; set; }
+        public TransactionCounter TransactionCounter { get; set; } = new();
 
         [JsonPropertyName("valuesByStat")]
-        public Dictionary<string, double> ValuesByStat { get; set; }
+        public Dictionary<string, double> ValuesByStat { get; set; } = [];
 
         [JsonPropertyName("waiverRank")]
         public int WaiverRank { get; set; }
 
         [JsonPropertyName("watchList")]
-        public List<int> WatchList { get; set; }
+        public List<int> WatchList { get; set; } = [];
     }
 
     public class Record
     {
         [JsonPropertyName("away")]
-        public RecordDetail Away { get; set; }
+        public RecordDetail Away { get; set; } = new();
 
         [JsonPropertyName("division")]
-        public RecordDetail Division { get; set; }
+        public RecordDetail Division { get; set; } = new();
 
         [JsonPropertyName("home")]
-        public RecordDetail Home { get; set; }
+        public RecordDetail Home { get; set; } = new();
 
         [JsonPropertyName("overall")]
-        public RecordDetail Overall { get; set; }
+        public RecordDetail Overall { get; set; } = new();
     }
 
     public class RecordDetail
@@ -227,7 +227,7 @@ namespace EspnFantasyApiWrapper.API.Model.EspnTeam
         public int StreakLength { get; set; }
 
         [JsonPropertyName("streakType")]
-        public string StreakType { get; set; }
+        public string StreakType { get; set; } = "";
 
         [JsonPropertyName("ties")]
         public int Ties { get; set; }
@@ -248,7 +248,7 @@ namespace EspnFantasyApiWrapper.API.Model.EspnTeam
         public int Drops { get; set; }
 
         [JsonPropertyName("matchupAcquisitionTotals")]
-        public Dictionary<string, int> MatchupAcquisitionTotals { get; set; }
+        public Dictionary<string, int> MatchupAcquisitionTotals { get; set; } = [];
 
         [JsonPropertyName("misc")]
         public int Misc { get; set; }

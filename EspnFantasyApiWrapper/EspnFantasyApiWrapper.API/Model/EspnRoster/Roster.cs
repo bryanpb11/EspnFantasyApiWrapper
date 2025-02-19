@@ -5,7 +5,7 @@ namespace EspnFantasyApiWrapper.API.Model.EspnRoster
     public class Roster
     {
         [JsonPropertyName("draftDetail")]
-        public DraftDetail DraftDetail { get; set; }
+        public DraftDetail? DraftDetail { get; set; }
 
         [JsonPropertyName("gameId")]
         public int GameId { get; set; }
@@ -23,10 +23,10 @@ namespace EspnFantasyApiWrapper.API.Model.EspnRoster
         public int SegmentId { get; set; }
 
         [JsonPropertyName("status")]
-        public Status Status { get; set; }
+        public Status Status { get; set; } = new();
 
         [JsonPropertyName("teams")]
-        public List<TeamData> Teams { get; set; }
+        public List<TeamData> Teams { get; set; } = [];
     }
 
     public class DraftDetail
@@ -83,7 +83,7 @@ namespace EspnFantasyApiWrapper.API.Model.EspnRoster
         public int LatestScoringPeriod { get; set; }
 
         [JsonPropertyName("previousSeasons")]
-        public List<int> PreviousSeasons { get; set; }
+        public List<int> PreviousSeasons { get; set; } = [];
 
         [JsonPropertyName("standingsUpdateDate")]
         public long StandingsUpdateDate { get; set; }
@@ -101,7 +101,7 @@ namespace EspnFantasyApiWrapper.API.Model.EspnRoster
         public long WaiverNextExecutionDate { get; set; }
 
         [JsonPropertyName("waiverProcessStatus")]
-        public Dictionary<string, int> WaiverProcessStatus { get; set; }
+        public Dictionary<string, int> WaiverProcessStatus { get; set; } = [];
     }
 
     public class TeamData
@@ -110,7 +110,7 @@ namespace EspnFantasyApiWrapper.API.Model.EspnRoster
         public int Id { get; set; }
 
         [JsonPropertyName("roster")]
-        public RosterDetail Roster { get; set; }
+        public RosterDetail Roster { get; set; } = new();
     }
 
     public class RosterDetail
@@ -119,34 +119,34 @@ namespace EspnFantasyApiWrapper.API.Model.EspnRoster
         public double AppliedStatTotal { get; set; }
 
         [JsonPropertyName("entries")]
-        public List<Entry> Entries { get; set; }
+        public List<Entry> Entries { get; set; } = [];
     }
 
     public class Entry
     {
         [JsonPropertyName("acquisitionDate")]
-        public object AcquisitionDate { get; set; }
+        public object AcquisitionDate { get; set; } = new();
 
         [JsonPropertyName("acquisitionType")]
-        public object AcquisitionType { get; set; }
+        public object AcquisitionType { get; set; } = new();
 
         [JsonPropertyName("injuryStatus")]
-        public string InjuryStatus { get; set; }
+        public string InjuryStatus { get; set; } = "";
 
         [JsonPropertyName("lineupSlotId")]
         public int LineupSlotId { get; set; }
 
         [JsonPropertyName("pendingTransactionIds")]
-        public object PendingTransactionIds { get; set; }
+        public object PendingTransactionIds { get; set; } = new();
 
         [JsonPropertyName("playerId")]
         public int PlayerId { get; set; }
 
         [JsonPropertyName("playerPoolEntry")]
-        public PlayerPoolEntry PlayerPoolEntry { get; set; }
+        public PlayerPoolEntry PlayerPoolEntry { get; set; } = new();
 
         [JsonPropertyName("status")]
-        public string Status { get; set; }
+        public string Status { get; set; } = "";
     }
 
     public class PlayerPoolEntry
@@ -170,10 +170,10 @@ namespace EspnFantasyApiWrapper.API.Model.EspnRoster
         public int OnTeamId { get; set; }
 
         [JsonPropertyName("player")]
-        public Player Player { get; set; }
+        public Player Player { get; set; } = new();
 
         [JsonPropertyName("ratings")]
-        public Ratings Ratings { get; set; }
+        public Ratings Ratings { get; set; } = new();
 
         [JsonPropertyName("rosterLocked")]
         public bool RosterLocked { get; set; }
@@ -191,22 +191,22 @@ namespace EspnFantasyApiWrapper.API.Model.EspnRoster
         public int DefaultPositionId { get; set; }
 
         [JsonPropertyName("draftRanksByRankType")]
-        public Dictionary<string, DraftRank> DraftRanksByRankType { get; set; }
+        public Dictionary<string, DraftRank> DraftRanksByRankType { get; set; } = [];
 
         [JsonPropertyName("droppable")]
         public bool Droppable { get; set; }
 
         [JsonPropertyName("eligibleSlots")]
-        public List<int> EligibleSlots { get; set; }
+        public List<int> EligibleSlots { get; set; } = [];
 
         [JsonPropertyName("firstName")]
-        public string FirstName { get; set; }
+        public string FirstName { get; set; } = "";
 
         [JsonPropertyName("fullName")]
-        public string FullName { get; set; }
+        public string FullName { get; set; } = "";
 
         [JsonPropertyName("gamesPlayedByPosition")]
-        public Dictionary<string, int> GamesPlayedByPosition { get; set; }
+        public Dictionary<string, int> GamesPlayedByPosition { get; set; } = [];
 
         [JsonPropertyName("id")]
         public int Id { get; set; }
@@ -215,19 +215,19 @@ namespace EspnFantasyApiWrapper.API.Model.EspnRoster
         public bool Injured { get; set; }
 
         [JsonPropertyName("injuryStatus")]
-        public string InjuryStatus { get; set; }
+        public string InjuryStatus { get; set; } = "";
 
         [JsonPropertyName("lastName")]
-        public string LastName { get; set; }
+        public string LastName { get; set; } = "";
 
         [JsonPropertyName("ownership")]
-        public Ownership Ownership { get; set; }
+        public Ownership Ownership { get; set; } = new();
 
         [JsonPropertyName("proTeamId")]
         public int ProTeamId { get; set; }
 
         [JsonPropertyName("stats")]
-        public List<Stat> Stats { get; set; }
+        public List<Stat> Stats { get; set; } = [];
 
         [JsonPropertyName("universeId")]
         public int UniverseId { get; set; }
@@ -248,7 +248,7 @@ namespace EspnFantasyApiWrapper.API.Model.EspnRoster
         public int RankSourceId { get; set; }
 
         [JsonPropertyName("rankType")]
-        public string RankType { get; set; }
+        public string RankType { get; set; } = "";
 
         [JsonPropertyName("slotId")]
         public int SlotId { get; set; }
@@ -278,16 +278,16 @@ namespace EspnFantasyApiWrapper.API.Model.EspnRoster
         public double AppliedAverage { get; set; }
 
         [JsonPropertyName("appliedStats")]
-        public Dictionary<string, decimal> AppliedStats { get; set; }
+        public Dictionary<string, decimal> AppliedStats { get; set; } = [];
 
         [JsonPropertyName("appliedTotal")]
         public double AppliedTotal { get; set; }
 
         [JsonPropertyName("externalId")]
-        public string ExternalId { get; set; }
+        public string ExternalId { get; set; } = "";
 
         [JsonPropertyName("id")]
-        public string Id { get; set; }
+        public string Id { get; set; } = "";
 
         [JsonPropertyName("proTeamId")]
         public int ProTeamId { get; set; }
@@ -305,19 +305,19 @@ namespace EspnFantasyApiWrapper.API.Model.EspnRoster
         public int StatSplitTypeId { get; set; }
 
         [JsonPropertyName("stats")]
-        public Dictionary<string, object> Stats { get; set; }
+        public Dictionary<string, object> Stats { get; set; } = [];
     }
 
     public class Ratings
     {
         [JsonPropertyName("positionalRanking")]
-        public Dictionary<string, Rating> PositionalRanking { get; set; }
+        public Dictionary<string, Rating> PositionalRanking { get; set; } = [];
 
         [JsonPropertyName("totalRanking")]
-        public Dictionary<string, Rating> TotalRanking { get; set; }
+        public Dictionary<string, Rating> TotalRanking { get; set; } = [];
 
         [JsonPropertyName("totalRating")]
-        public Dictionary<string, Rating> TotalRating { get; set; }
+        public Dictionary<string, Rating> TotalRating { get; set; } = [];
     }
 
     public class Rating

@@ -6,22 +6,28 @@ using EspnTeamModel = EspnFantasyApiWrapper.API.Model.EspnTeam;
 
 namespace EspnFantasyApiWrapper.API
 {
-    public class EspnApiScraper
+    /// <summary>
+    /// Constructor for EspnApiScraper
+    /// </summary>
+    /// <param name="httpClient">An instantiated HttpClient object</param>
+    /// <param name="apiUrlRoot">The root Url for the API call to the ESPN League History API.  Default root for Fantasy Baseball is https://lm-api-reads.fantasy.espn.com/apis/v3/games/flb/leagueHistory/</param>
+    public class APIScraper(HttpClient httpClient, string apiUrlRoot = "https://lm-api-reads.fantasy.espn.com/apis/v3/games/flb/leagueHistory/")
     {
-        private readonly HttpClient _httpClient;
-        private readonly string _urlRoot;
+        private readonly HttpClient _httpClient = httpClient;
+        private readonly string _urlRoot = apiUrlRoot;
 
-        public EspnApiScraper(HttpClient httpClient, string apiUrlRoot = "https://lm-api-reads.fantasy.espn.com/apis/v3/games/flb/leagueHistory/")
-        {
-            _httpClient = httpClient;
-            _urlRoot = apiUrlRoot;
-        }
-
+        /// <summary>
+        /// Scrapes raw data from ESPN API and processes it into a list of simplified PlayerStats objects
+        /// </summary>
+        /// <param name="leagueId">ESPN League ID</param>
+        /// <param name="season">Fantasy season year</param>
+        /// <returns>Simplified list of PlayerStats objects</returns>
         public async Task<List<PlayerStats>> ProcessRosterData(string leagueId, string season)
         {
             var data = await ScrapeRosterData(leagueId, season);
-            var roster = data.FirstOrDefault();
-            List<PlayerStats> lPlayerStats = new();
+            var roster = data.FirstOrDefault() ?? new();
+
+            List<PlayerStats> lPlayerStats = [];
 
             foreach(var team in roster.Teams)
             {
@@ -56,9 +62,16 @@ namespace EspnFantasyApiWrapper.API
             return lPlayerStats;
         }
 
+        /// <summary>
+        /// Scrapes raw roster data from ESPN API
+        /// </summary>
+        /// <param name="leagueId">ESPN League ID</param>
+        /// <param name="season">Fantasy season year</param>
+        /// <returns>List of raw roster data</returns>
+        /// <exception cref="Exception"></exception>
         public async Task<List<EspnRosterModel.Roster>> ScrapeRosterData(string leagueId, string season)
         {
-            List<EspnRosterModel.Roster> roster = new();
+            List<EspnRosterModel.Roster> roster = [];
             var url = $"{_urlRoot}{leagueId}?seasonId={season}&view=mRoster"; // Replace with actual API URL
             var response = await _httpClient.GetAsync(url);
 
@@ -67,7 +80,7 @@ namespace EspnFantasyApiWrapper.API
                 var jsonResponse = await response.Content.ReadAsStringAsync();
                 try
                 {
-                    roster = JsonSerializer.Deserialize<List<EspnRosterModel.Roster>>(jsonResponse);
+                    roster = JsonSerializer.Deserialize<List<EspnRosterModel.Roster>>(jsonResponse) ?? [];
                 }
                 catch (JsonException ex)
                 {
@@ -81,19 +94,25 @@ namespace EspnFantasyApiWrapper.API
 
             return roster;
         }
-    
+
+        /// <summary>
+        /// Processes raw team data from ESPN API into a list of simplified TeamStats objects
+        /// </summary>
+        /// <param name="leagueId">ESPN League ID</param>
+        /// <param name="season">Fantasy season year</param>
+        /// <returns>Simplified list of TeamStats objects</returns>
         public async Task<List<TeamStats>> ProcessTeamData(string leagueId, string season)
         {
             var data = await ScrapeTeamData(leagueId, season);
-            var teamData = data.FirstOrDefault();
-            List<TeamStats> lTeamStats = new();
+            var teamData = data.FirstOrDefault() ?? new();
+            List<TeamStats> lTeamStats = [];
             var members = teamData.Members;
 
             foreach (var team in teamData.Teams)
             {
                 var teamId = team.Id;
                 
-                var teamMember = members.FirstOrDefault(m => m.Id == team.PrimaryOwner);
+                var teamMember = members.FirstOrDefault(m => m.Id == team.PrimaryOwner) ?? new();
 
                 var teamStats = new TeamStats
                 {
@@ -116,9 +135,16 @@ namespace EspnFantasyApiWrapper.API
             return lTeamStats;
         }
 
+        /// <summary>
+        /// Scrapes raw team data from ESPN API
+        /// </summary>
+        /// <param name="leagueId">ESPN League ID</param>
+        /// <param name="season">Fantasy season year</param>
+        /// <returns>List of TeamData objects parsed from ESPN API</returns>
+        /// <exception cref="Exception"></exception>
         public async Task<List<EspnTeamModel.TeamData>> ScrapeTeamData(string leagueId, string season)
         {
-            List<EspnTeamModel.TeamData> teams = new();
+            List<EspnTeamModel.TeamData> teams = [];
             var url = $"{_urlRoot}{leagueId}?seasonId={season}&view=mTeam"; // Replace with actual API URL
             var response = await _httpClient.GetAsync(url);
 
@@ -127,7 +153,7 @@ namespace EspnFantasyApiWrapper.API
                 var jsonResponse = await response.Content.ReadAsStringAsync();
                 try
                 {
-                    teams = JsonSerializer.Deserialize<List<EspnTeamModel.TeamData>>(jsonResponse);
+                    teams = JsonSerializer.Deserialize<List<EspnTeamModel.TeamData>>(jsonResponse) ?? [];
                 }
                 catch (JsonException ex)
                 {
