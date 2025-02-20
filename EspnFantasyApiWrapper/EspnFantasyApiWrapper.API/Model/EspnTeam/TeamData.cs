@@ -2,6 +2,8 @@ using System.Text.Json.Serialization;
 
 namespace EspnFantasyApiWrapper.API.Model.EspnTeam
 {
+    ///Contains the model classes for fantasy team level data that translate the JSON data returned by the ESPN API into C# objects
+
     public class TeamData
     {
         [JsonPropertyName("draftDetail")]

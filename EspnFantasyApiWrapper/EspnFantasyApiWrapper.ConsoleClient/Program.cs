@@ -29,10 +29,10 @@ while (choice != "X")
     var apiResultFull = new List<object>();
     var fileNamePrefix = "";
 
-    Console.WriteLine("1 - Scrape raw roster data and output to JSON file.");
-    Console.WriteLine("2 - Scrape raw roster data and output to simplified JSON file.");
-    Console.WriteLine("3 - Scrape raw team data and output to JSON file.");
-    Console.WriteLine("4 - Scrape raw team data and output to simplified JSON file.");
+    Console.WriteLine("1 - Scrape raw fantasy team roster data and stats from the ESPN API and output to a local JSON file.");
+    Console.WriteLine("2 - Scrape raw fantasy team roster data and stats from the ESPN API and output to a simplified JSON file.");
+    Console.WriteLine("3 - Scrape raw fantasy team level data and stats from the ESPN API and output to a local JSON file.");
+    Console.WriteLine("4 - Scrape raw fantasy team level data and stats from the ESPN API and output to a simplified JSON file.");
     Console.WriteLine("X - EXIT");
     Console.WriteLine("");
 
