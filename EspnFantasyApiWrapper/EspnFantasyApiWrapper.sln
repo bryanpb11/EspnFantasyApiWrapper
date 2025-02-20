@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EspnFantasyApiWrapper.API",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EspnFantasyApiWrapper.UnitTest", "EspnFantasyApiWrapper.UnitTest\EspnFantasyApiWrapper.UnitTest.csproj", "{F50BAA2B-1A0B-4FF0-846F-C227396BADE1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EspnFantasyApiWrapper.ConsoleClient", "EspnFantasyApiWrapper.ConsoleClient\EspnFantasyApiWrapper.ConsoleClient.csproj", "{F18084EE-4772-4BA4-823B-7A42575C4233}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{F50BAA2B-1A0B-4FF0-846F-C227396BADE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F50BAA2B-1A0B-4FF0-846F-C227396BADE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F50BAA2B-1A0B-4FF0-846F-C227396BADE1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F18084EE-4772-4BA4-823B-7A42575C4233}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F18084EE-4772-4BA4-823B-7A42575C4233}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F18084EE-4772-4BA4-823B-7A42575C4233}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F18084EE-4772-4BA4-823B-7A42575C4233}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
