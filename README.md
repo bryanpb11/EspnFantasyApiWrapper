@@ -13,4 +13,4 @@ The main Visual Studio solution file is "EspnFantasyApiWrapper\EspnFantasyApiWra
 
 This solution is currently built for the fantasy baseball endpoints and schemas but can be easily extended to support other fantasy sports.
 
-Future development plans TBD.
+Future development plans TBD.  Currently working on a program using ML.NET to use stats to make predictions for the upcoming season.
