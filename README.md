@@ -19,26 +19,28 @@ The main Visual Studio solution file is "EspnFantasyApiWrapper\EspnFantasyApiWra
 ## ESPN API Endpoints
 This section contains some brief notes on the API endpoints for the ESPN API.  **Note, ESPN has been known to change the URL structure without notice, so this can be a moving target.  Also, this API is not well documented, so this is not an exhaustive list of functionality; just what I have come across so far.
 
-The root URL is https://lm-api-reads.fantasy.espn.com/apis/v3/games.  A GET call to this endpoint returns basic information about the sport specific endpoints, such as the abbrevation, current season, etc.
+The root URL is
+- https://lm-api-reads.fantasy.espn.com/apis/v3/games.
+- A GET call to this endpoint returns basic information about the sport specific endpoints, such as the abbrevation, current season, etc.
 
 Examples of sport specific endpoints (where {leagueId} can be replaced with your specfic league ID):
-Fantasy baseball example: https://lm-api-reads.fantasy.espn.com/apis/v3/games/flb/leagueHistory/{leagueId}
-Fantasy football example: https://lm-api-reads.fantasy.espn.com/apis/v3/games/ffl/leagueHistory/{leagueId}
+- Fantasy baseball example: https://lm-api-reads.fantasy.espn.com/apis/v3/games/flb/leagueHistory/{leagueId}
+- Fantasy football example: https://lm-api-reads.fantasy.espn.com/apis/v3/games/ffl/leagueHistory/{leagueId}
 
 To obtain year/season specific info, this URL format can be used (where {yyyy} can additionally be replaced with the four digit year for the season you wish to reference):
-https://lm-api-reads.fantasy.espn.com/apis/v3/games/flb/leagueHistory/{leagueId}?seasonId={yyyy}
+- https://lm-api-reads.fantasy.espn.com/apis/v3/games/flb/leagueHistory/{leagueId}?seasonId={yyyy}
 
 Finally, to return different "views" of the data, this URL format can be used (where {viewName} can additionally be replaced by the view name):
-https://lm-api-reads.fantasy.espn.com/apis/v3/games/flb/leagueHistory/{leagueId}?seasonId={yyyy}&view={viewName}
+- https://lm-api-reads.fantasy.espn.com/apis/v3/games/flb/leagueHistory/{leagueId}?seasonId={yyyy}&view={viewName}
 
 View names I have confirmed work:
-mTeam
-mBoxscore
-mRoster
-mSettings
-kona_player_info
-player_wl
-mSchedule
+- mTeam
+- mBoxscore
+- mRoster
+- mSettings
+- kona_player_info
+- player_wl
+- mSchedule
 
 ## Contributing
 Contributions are welcome! Please open an issue or submit a pull request.
