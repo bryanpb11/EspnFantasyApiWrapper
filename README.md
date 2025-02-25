@@ -1,5 +1,5 @@
 # EspnFantasyApiWrapper
-The EspnFantasyApiWrapper repo is built in .NET/C# and contains wrappers to call into the ESPN fantasy sports APIs to pull various data.  This solution is currently built for the fantasy baseball endpoints (focusing on a H2H points league) and schemas but can be easily extended to support other fantasy sports.  Future development plans TBD.  Currently working on a separate project with ML.NET to use the stats from this project to make predictions for the upcoming season.
+The ESPN Fantasy API Wrapper repo is built in .NET/C# and contains wrappers to call into the ESPN fantasy sports APIs to pull various data.  This solution is currently built for the fantasy baseball endpoints (focusing on a H2H points league) and schemas but can be easily extended to support other fantasy sports.  Future development plans TBD.  Currently working on a separate project with ML.NET to use the stats from this project to make predictions for the upcoming season.
 
 ## Features
 - Scrape raw fantasy team data/stats and player data/stats from the ESPN API.
