@@ -17,6 +17,9 @@ Console.WriteLine(@"Enter Root Url or blank for default (https://lm-api-reads.fa
 var apiUrlRootInput = Console.ReadLine();
 var apiUrlRoot = String.IsNullOrWhiteSpace(apiUrlRootInput) ? "https://lm-api-reads.fantasy.espn.com/apis/v3/games/flb/leagueHistory/" : apiUrlRootInput;
 
+Console.WriteLine(@"Enter sport abbreviation ('flb' for baseball, 'ffl' for football)");
+var sportAbbrev = Console.ReadLine() ?? "";
+
 using HttpClient httpClient = new();
 APIScraper apiScraper = new(httpClient, apiUrlRoot);
 
@@ -49,7 +52,7 @@ while (choice != "X")
                 fileNamePrefix = "RawRoster";
                 break;
             case "2":
-                var apiResult2 = await apiScraper.ProcessRosterData(leagueId, season.ToString());
+                var apiResult2 = await apiScraper.ProcessRosterData(leagueId, season.ToString(), sportAbbrev);
                 apiResultFull.AddRange(apiResult2);
                 fileNamePrefix = "SimplifiedRoster";
                 break;

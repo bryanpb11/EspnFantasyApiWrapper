@@ -10,7 +10,7 @@ namespace EspnFantasyApiWrapper.API
     /// Constructor for EspnApiScraper
     /// </summary>
     /// <param name="httpClient">An instantiated HttpClient object</param>
-    /// <param name="apiUrlRoot">The root Url for the API call to the ESPN League History API.  Default root for Fantasy Baseball is https://lm-api-reads.fantasy.espn.com/apis/v3/games/flb/leagueHistory/</param>
+    /// <param name="apiUrlRoot">The root Url for the API call to the ESPN League History API.  Default root for Fantasy Baseball is https://lm-api-reads.fantasy.espn.com/apis/v3/games/flb/leagueHistory/.  To get details about other endpoints, browse to: https://lm-api-reads.fantasy.espn.com/apis/v3/games</param>
     public class APIScraper(HttpClient httpClient, string apiUrlRoot = "https://lm-api-reads.fantasy.espn.com/apis/v3/games/flb/leagueHistory/")
     {
         private readonly HttpClient _httpClient = httpClient;
@@ -22,10 +22,17 @@ namespace EspnFantasyApiWrapper.API
         /// <param name="leagueId">ESPN League ID</param>
         /// <param name="season">Fantasy season year</param>
         /// <returns>Simplified list of PlayerStats objects</returns>
-        public async Task<List<PlayerStats>> ProcessRosterData(string leagueId, string season)
+        public async Task<List<PlayerStats>> ProcessRosterData(string leagueId, string season, string sportAbbrev)
         {
             var data = await ScrapeRosterData(leagueId, season);
             var roster = data.FirstOrDefault() ?? new();
+            
+            var playerStatIndex = sportAbbrev switch
+            {
+                "flb" => 0,
+                "ffl" => 1,
+                _ => -1,
+            };
 
             List<PlayerStats> lPlayerStats = [];
 
@@ -36,8 +43,8 @@ namespace EspnFantasyApiWrapper.API
                 foreach(var entry in team.Roster.Entries)
                 {
                     var playerName = entry.PlayerPoolEntry.Player.FullName;
-                    var statsAppliedTotal = entry.PlayerPoolEntry.Player.Stats != null ? entry.PlayerPoolEntry.Player.Stats[0].AppliedTotal : 0;
-                    var statsAppliedAverage = entry.PlayerPoolEntry.Player.Stats != null ? entry.PlayerPoolEntry.Player.Stats[0].AppliedAverage : 0;
+                    var statsAppliedTotal = entry.PlayerPoolEntry.Player.Stats != null ? entry.PlayerPoolEntry.Player.Stats[playerStatIndex].AppliedTotal : 0;
+                    var statsAppliedAverage = entry.PlayerPoolEntry.Player.Stats != null ? entry.PlayerPoolEntry.Player.Stats[playerStatIndex].AppliedAverage : 0;
                     var lineupSlotId = entry.LineupSlotId;
                     var playerId = entry.PlayerPoolEntry.Player.Id;
                     var year = season;
