@@ -14,7 +14,7 @@ Console.WriteLine("Enter most recent season (year) to scrape to:");
 var season = Convert.ToInt32(Console.ReadLine());
 var origSeason = season;
 
-Console.WriteLine("Enter season (year) to scrap back to (blank for default of 2021):");
+Console.WriteLine("Enter season (year) to scrape back to (blank for default of 2021):");
 var input = Console.ReadLine();
 var goBackToSeason = Convert.ToInt32(String.IsNullOrWhiteSpace(input) ? "2021" : input); 
 
