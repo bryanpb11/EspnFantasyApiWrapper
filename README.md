@@ -41,9 +41,11 @@ View names I have confirmed work:
 - kona_player_info
 - player_wl
 - mSchedule
+- mDraftDetail
 
 ## Contributing
-Contributions are welcome! Please open an issue or submit a pull request.
+Contributions a
+re welcome! Please open an issue or submit a pull request.
 
 ## License
 This project is licensed under the "GNU General Public License v3.0" License.  See LICENSE file for more details.

@@ -2,12 +2,21 @@
 
 using System.Text.Json;
 
+//To get these values, log into your ESPN account, open the developer tools in your browser
+//and look for the "Cookie" header in the network requests to the ESPN fantasy API.
+//This is located under "Application" -> "Storage" -> "Cookies" in Chrome Developer Tools.
+//The SWID and espn_s2 values will be included in that header.
+//You can set these as environment variables on your machine or input them when prompted by the console application.
+var swid = Environment.GetEnvironmentVariable("ESPN_SWID");
+var espnS2 = Environment.GetEnvironmentVariable("ESPN_S2");
+
 Console.WriteLine("Enter most recent season (year) to scrape to:");
 var season = Convert.ToInt32(Console.ReadLine());
 var origSeason = season;
 
-Console.WriteLine("Enter season (year) to scrap back to:");
-var goBackToSeason = Convert.ToInt32(Console.ReadLine());
+Console.WriteLine("Enter season (year) to scrap back to (blank for default of 2021):");
+var input = Console.ReadLine();
+var goBackToSeason = Convert.ToInt32(String.IsNullOrWhiteSpace(input) ? "2021" : input); 
 
 Console.WriteLine("Enter League ID or blank to default to environment variable (FantasyLeagueID): ");
 var leagueIdInput = Console.ReadLine();
@@ -17,11 +26,12 @@ Console.WriteLine(@"Enter Root Url or blank for default (https://lm-api-reads.fa
 var apiUrlRootInput = Console.ReadLine();
 var apiUrlRoot = String.IsNullOrWhiteSpace(apiUrlRootInput) ? "https://lm-api-reads.fantasy.espn.com/apis/v3/games/flb/leagueHistory/" : apiUrlRootInput;
 
-Console.WriteLine(@"Enter sport abbreviation ('flb' for baseball, 'ffl' for football)");
-var sportAbbrev = Console.ReadLine() ?? "";
+Console.WriteLine(@"Enter sport abbreviation ('flb' for baseball (default), 'ffl' for football)");
+input = Console.ReadLine();
+var sportAbbrev = String.IsNullOrWhiteSpace(input) ? "flb" : input;
 
 using HttpClient httpClient = new();
-APIScraper apiScraper = new(httpClient, apiUrlRoot);
+APIScraper apiScraper = new(httpClient, apiUrlRoot, swid, espnS2);
 
 var choice = "";
 

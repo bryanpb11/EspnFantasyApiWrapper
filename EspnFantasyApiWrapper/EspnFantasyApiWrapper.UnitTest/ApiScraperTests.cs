@@ -103,4 +103,63 @@ public class ApiScraperTests
         Xunit.Assert.NotNull(result);
         Xunit.Assert.Equal(_footballTeam8Name, result[7].TeamName);
     }
+
+    // New tests demonstrating authenticated vs unauthenticated requests
+
+    [Fact]
+    public async Task Baseball_Unauthenticated_ScrapeRosterData_Succeeds()
+    {
+        // Act
+        var result = await _baseballApiScraper.ScrapeRosterData(_baseballLeagueId, _baseballSeason);
+
+        // Assert
+        Xunit.Assert.NotNull(result);
+    }
+
+    [Fact]
+    public async Task Baseball_Authenticated_ScrapeRosterData_Succeeds_WhenCredentialsProvided()
+    {
+        var swid = Environment.GetEnvironmentVariable("ESPN_SWID");
+        var espnS2 = Environment.GetEnvironmentVariable("ESPN_S2");
+
+        // If credentials not provided, skip this test (mark as passed)
+        if (string.IsNullOrEmpty(swid) || string.IsNullOrEmpty(espnS2))
+            return;
+
+        using var client = new HttpClient();
+        var authScraper = new APIScraper(client, _baseballApiUrlRoot, swid, espnS2);
+
+        // Act
+        var result = await authScraper.ScrapeRosterData(_baseballLeagueId, _baseballSeason);
+
+        // Assert
+        Xunit.Assert.NotNull(result);
+        Xunit.Assert.NotEmpty(result);
+    }
+
+    [Fact]
+    public async Task Baseball_Unauthenticated_Vs_Authenticated_Roster_Comparison()
+    {
+        var swid = Environment.GetEnvironmentVariable("ESPN_SWID");
+        var espnS2 = Environment.GetEnvironmentVariable("ESPN_S2");
+
+        // If credentials not provided, skip this comparison test
+        if (string.IsNullOrEmpty(swid) || string.IsNullOrEmpty(espnS2))
+            return;
+
+        using var client = new HttpClient();
+        var authScraper = new APIScraper(client, _baseballApiUrlRoot, swid, espnS2);
+
+        // Act
+        var unauthResult = await _baseballApiScraper.ScrapeRosterData(_baseballLeagueId, _baseballSeason);
+        var authResult = await authScraper.ScrapeRosterData(_baseballLeagueId, _baseballSeason);
+
+        // Assert both succeeded
+        Xunit.Assert.NotNull(unauthResult);
+        Xunit.Assert.NotNull(authResult);
+
+        // If both contain data, ensure at least one has teams (demonstrates working responses)
+        if (unauthResult.Count > 0) Xunit.Assert.True(unauthResult[0].Teams?.Count > 0);
+        if (authResult.Count > 0) Xunit.Assert.True(authResult[0].Teams?.Count > 0);
+    }
 }
