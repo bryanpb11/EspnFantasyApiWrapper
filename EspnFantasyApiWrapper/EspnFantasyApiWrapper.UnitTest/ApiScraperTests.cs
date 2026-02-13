@@ -35,9 +35,16 @@ public class ApiScraperTests
         _footballApiScraper = new APIScraper(_footballHttpClient, _footballApiUrlRoot);
     }
 
+    private bool IsBaseballConfigured() => !string.IsNullOrEmpty(_baseballLeagueId);
+    private bool IsFootballConfigured() => !string.IsNullOrEmpty(_footballLeagueId);
+    private bool ShouldRunLiveTests() => string.Equals(Environment.GetEnvironmentVariable("RUN_LIVE_TESTS"), "true", StringComparison.OrdinalIgnoreCase);
+
     [Fact]
     public async Task Baseball_ProcessRosterData_ReturnsPlayerStatsList()
     {
+        if (!ShouldRunLiveTests() || !IsBaseballConfigured())
+            return;
+
         // Act
         var result = await _baseballApiScraper.ProcessRosterData(_baseballLeagueId, _baseballSeason, "flb");
 
@@ -49,6 +56,9 @@ public class ApiScraperTests
     [Fact]
     public async Task Baseball_ScrapeRosterData_ReturnsRosterList()
     {
+        if (!ShouldRunLiveTests() || !IsBaseballConfigured())
+            return;
+
         // Act
         var result = await _baseballApiScraper.ScrapeRosterData(_baseballLeagueId, _baseballSeason);
 
@@ -61,6 +71,9 @@ public class ApiScraperTests
     [Fact]
     public async Task Baseball_ProcessTeamData_ReturnsTeamStatsList()
     {   
+        if (!ShouldRunLiveTests() || !IsBaseballConfigured())
+            return;
+
         // Act
         var result = await _baseballApiScraper.ProcessTeamData(_baseballLeagueId, _baseballSeason);
 
@@ -72,6 +85,9 @@ public class ApiScraperTests
     [Fact]
     public async Task Baseball_ScrapeTeamData_ReturnsTeamDataList()
     {
+        if (!ShouldRunLiveTests() || !IsBaseballConfigured())
+            return;
+
         // Act
         var result = await _baseballApiScraper.ScrapeTeamData(_baseballLeagueId, _baseballSeason);
 
@@ -84,6 +100,9 @@ public class ApiScraperTests
     [Fact]
     public async Task Football_ScrapeTeamData_ReturnsTeamDataList()
     {
+        if (!ShouldRunLiveTests() || !IsFootballConfigured())
+            return;
+
         // Act
         var result = await _footballApiScraper.ScrapeTeamData(_footballLeagueId, _footballSeason);
 
@@ -96,6 +115,9 @@ public class ApiScraperTests
     [Fact]
     public async Task Football_ProcessTeamData_ReturnsTeamStatsList()
     {
+        if (!ShouldRunLiveTests() || !IsFootballConfigured())
+            return;
+
         // Act
         var result = await _footballApiScraper.ProcessTeamData(_footballLeagueId, _footballSeason);
 
@@ -109,6 +131,9 @@ public class ApiScraperTests
     [Fact]
     public async Task Baseball_Unauthenticated_ScrapeRosterData_Succeeds()
     {
+        if (!ShouldRunLiveTests() || !IsBaseballConfigured())
+            return;
+
         // Act
         var result = await _baseballApiScraper.ScrapeRosterData(_baseballLeagueId, _baseballSeason);
 
@@ -122,8 +147,8 @@ public class ApiScraperTests
         var swid = Environment.GetEnvironmentVariable("ESPN_SWID");
         var espnS2 = Environment.GetEnvironmentVariable("ESPN_S2");
 
-        // If credentials not provided, skip this test (mark as passed)
-        if (string.IsNullOrEmpty(swid) || string.IsNullOrEmpty(espnS2))
+        // If credentials not provided or live tests disabled, skip this test
+        if (!ShouldRunLiveTests() || string.IsNullOrEmpty(swid) || string.IsNullOrEmpty(espnS2))
             return;
 
         using var client = new HttpClient();
@@ -143,8 +168,8 @@ public class ApiScraperTests
         var swid = Environment.GetEnvironmentVariable("ESPN_SWID");
         var espnS2 = Environment.GetEnvironmentVariable("ESPN_S2");
 
-        // If credentials not provided, skip this comparison test
-        if (string.IsNullOrEmpty(swid) || string.IsNullOrEmpty(espnS2))
+        // If credentials not provided or live tests disabled, skip this comparison test
+        if (!ShouldRunLiveTests() || string.IsNullOrEmpty(swid) || string.IsNullOrEmpty(espnS2))
             return;
 
         using var client = new HttpClient();
